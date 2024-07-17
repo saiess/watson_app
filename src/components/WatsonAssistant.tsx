@@ -1,50 +1,37 @@
-import React, { useEffect } from 'react';
-
+import { useEffect } from 'react';
 declare global {
   interface Window {
     watsonAssistantChatOptions: any;
   }
 }
-
-const WatsonAssistantWidget: React.FC = () => {
+const WatsonAssistant = () => {
   useEffect(() => {
     window.watsonAssistantChatOptions = {
-      integrationID: "abf792fd-2944-4827-b640-0215a84334c0",
+     /* integrationID: "abf792fd-2944-4827-b640-0215a84334c0",
       region: "eu-gb",
-      serviceInstanceID: "64ecdfcd-8cb8-4076-ae79-94929e1087c6",
-      onLoad: async (instance: any) => {
-        await instance.render();
+      serviceInstanceID: "64ecdfcd-8cb8-4076-ae79-94929e1087c6",*/
+    integrationID: "668533c2-b81c-4ae9-af2f-ca134dbd0577",
+    region: "au-syd",
+    serviceInstanceID: "f09894d0-ccb4-4359-8e01-abd531155b81",
 
-        const res = instance
-        console.log('Message input element:', res);
-        
-        // Listen for messages from Watson Assistant
-        // res((response: any) => {
-        //   console.log(response, 'response');
-          
-        //   const { message } = response.data;
-
-        //   if (message.input.text.toLowerCase().includes('show something')) {
-        //     displaySomething();
-        //   }
-        // });
-      }
+    onLoad: async (instance:any) => {
+      // Render the web chat.
+      await instance.render();
+      
+      // Register to listen for the "receive" event.
+      instance.on({ type: 'receive', handler: (event: any, instance: any) => {
+        console.log('I received a message!', event.data);
+      }});
+  }
     };
-
     const script = document.createElement('script');
     script.src = `https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js`;
     script.setAttribute('async', '');
     document.head.appendChild(script);
-
     return () => {
       document.head.removeChild(script);
     };
   }, []);
-
-  const displaySomething = () => {
-    // Example function to display something when the user triggers it
-    alert('Displaying something based on user response!');
-  };
 
   return (
     <div>
@@ -52,5 +39,4 @@ const WatsonAssistantWidget: React.FC = () => {
     </div>
   );
 };
-
-export default WatsonAssistantWidget;
+export default WatsonAssistant;

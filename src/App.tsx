@@ -1,7 +1,7 @@
 // import { useState } from 'react'
 import './App.css'
 import Outfits from './components/Outfits'
-import WatsonAssistantWidget from './components/WatsonAssistant'
+import WatsonAssistant from './components/WatsonAssistant'
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
         Please use watson chatBot for recommendations
       </p>
       <Outfits/>
-      <WatsonAssistantWidget />
+      <WatsonAssistant />
     </>
   )
 }
