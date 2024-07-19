@@ -20,7 +20,9 @@ const Outfits = ({ imagesToDisplay }: OutfitsProps) => {
               <span className="text name">{item.name}</span>
               <div className="price_section">
               <span className="text price">{item.budget} $</span>
-              <MdOutlineEco className="eco__icon"/>
+              {item.ecoFriendly === "yes" &&
+              (<MdOutlineEco className="eco__icon"/>
+              )}
               </div>
             </div>
           </div>

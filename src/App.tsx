@@ -21,6 +21,15 @@ function App() {
   const [filteredData, setFilteredData] = useState<OutfitsDataType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+
+  useEffect(() => {
+    const savedPreferences = sessionStorage.getItem('userPreferences');
+    if (savedPreferences) {
+      const parsedPreferences = JSON.parse(savedPreferences) as OutfitsDataType;
+      setUserPreferences({...parsedPreferences});
+    }
+  }, []);
+
   const isInRange = (value: number, range: number | RangeObject): boolean => {
     if (typeof range === "number") {
       return value === range;

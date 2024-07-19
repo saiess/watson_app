@@ -26,7 +26,8 @@ const WatsonAssistant = ({ setUserPreferences }: WatsonAssistantProps) => {
             const skillVariablesLength = Object.keys(skillVariables).length;
 
             if (skillVariablesLength === 9) {
-              setUserPreferences({ ...skillVariables });
+              setUserPreferences(skillVariables);
+              sessionStorage.setItem('userPreferences', JSON.stringify(skillVariables));
 
               setTimeout(() => {
                 instance.restartConversation();
