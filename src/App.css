@@ -3,6 +3,10 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  min-height: 80vh;
 }
 
 .logo {
@@ -44,14 +48,15 @@
 .image-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  /* gap: 20px; */
 }
 .image-item {
   text-align: center;
-  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  width: 22rem;
 }
 .image-item img {
   max-width: 100%;
@@ -60,7 +65,116 @@
   border-radius: 8px;
 }
 
+.item__desc {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding-left: 5rem;
+}
+.price_section{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.text{
+  color: #302218;
+  font-family: monospace;
+}
+
+.name{
+  width: fit-content;
+}
+
+.price{
+  font-size: 1rem;
+}
+
+.eco__icon{
+  color: green;
+  font-size: 1.3rem;
+}
+
+.line{
+  width: 100%;
+  height: 1px;
+  color: #302218;
+}
+
 
 .WatsonAssistantChatHost {
   position: absolute;
 }
+
+/* *****lodaer***** */
+
+.loader_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20rem;
+}
+.loader {
+  width: 54px;
+  height: 54px;
+  position: relative;
+  background: #FFF;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.loader:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  transform: rotate(45deg) translate(30%, 40%);
+  background: #e2dacd;
+  box-shadow: 32px -34px 0 5px #d2b44f;
+  animation: slide 2s infinite ease-in-out alternate;
+}
+
+.loader:after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #d2b44f;
+  transform: rotate(0deg);
+  transform-origin: 35px 145px;
+  animation: rotate 2s infinite ease-in-out;
+}
+
+@keyframes slide {
+  0% , 100% {
+    bottom: -35px
+  }
+
+  25% , 75% {
+    bottom: -2px
+  }
+
+  20% , 80% {
+    bottom: 2px
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(-15deg)
+  }
+
+  25% , 75% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(25deg)
+  }
+}
+  

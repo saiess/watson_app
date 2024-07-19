@@ -1,37 +1,57 @@
 import { useEffect } from 'react';
+import { OutfitsDataType } from '../types/outfitsDataType';
+
 declare global {
   interface Window {
     watsonAssistantChatOptions: any;
   }
 }
-const WatsonAssistant = () => {
+
+interface WatsonAssistantProps {
+  setUserPreferences: (preferences: OutfitsDataType) => void;
+}
+
+const WatsonAssistant = ({ setUserPreferences }: WatsonAssistantProps) => {
   useEffect(() => {
     window.watsonAssistantChatOptions = {
-     /* integrationID: "abf792fd-2944-4827-b640-0215a84334c0",
-      region: "eu-gb",
-      serviceInstanceID: "64ecdfcd-8cb8-4076-ae79-94929e1087c6",*/
-    integrationID: "668533c2-b81c-4ae9-af2f-ca134dbd0577",
-    region: "au-syd",
-    serviceInstanceID: "f09894d0-ccb4-4359-8e01-abd531155b81",
+      integrationID: "668533c2-b81c-4ae9-af2f-ca134dbd0577",
+      region: "au-syd",
+      serviceInstanceID: "f09894d0-ccb4-4359-8e01-abd531155b81",
+      onLoad: async (instance: any) => {
+        await instance.render();
 
-    onLoad: async (instance:any) => {
-      // Render the web chat.
-      await instance.render();
-      
-      // Register to listen for the "receive" event.
-      instance.on({ type: 'receive', handler: (event: any, instance: any) => {
-        console.log('I received a message!', event.data);
-      }});
-  }
+        instance.on({
+          type: 'receive', handler: (event: any) => {
+            const skillVariables = event.data.context.skills["actions skill"].skill_variables;
+            const skillVariablesLength = Object.keys(skillVariables).length;
+
+            if (skillVariablesLength === 9) {
+              setUserPreferences({ ...skillVariables });
+
+              setTimeout(() => {
+                instance.restartConversation();
+              }, 1000);
+
+              console.log("Conversation has been cleared.");
+            } else {
+              console.log("skillVariables length is not 9.");
+            }
+
+            console.log("Length of skill_variables object:", skillVariablesLength);
+          }
+        });
+      }
     };
+
     const script = document.createElement('script');
-    script.src = `https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js`;
-    script.setAttribute('async', '');
+    script.src = 'https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js';
+    script.async = true;
     document.head.appendChild(script);
+
     return () => {
       document.head.removeChild(script);
     };
-  }, []);
+  }, [setUserPreferences]);
 
   return (
     <div>
@@ -39,4 +59,5 @@ const WatsonAssistant = () => {
     </div>
   );
 };
+
 export default WatsonAssistant;

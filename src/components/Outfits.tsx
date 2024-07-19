@@ -1,15 +1,30 @@
-const Outfits = () => {
+import { OutfitsDataType } from "../types/outfitsDataType";
+import { MdOutlineEco } from "react-icons/md";
+
+interface OutfitsProps {
+  imagesToDisplay: OutfitsDataType[];
+}
+
+const Outfits = ({ imagesToDisplay }: OutfitsProps) => {
   return (
     <div className="image-grid">
-      <div className="image-item">
-        <img src="../../public/shirt.webp" alt="Product 1" />
-      </div>
-      <div className="image-item">
-        <img src="../../public/pant.webp" alt="Product 2" />
-      </div>
-      <div className="image-item">
-        <img src="../../public/shoe.png" alt="Product 3" />
-      </div>
+      {imagesToDisplay &&
+        imagesToDisplay.map((item, idx) => (
+          <div key={idx} className="image-item">
+            <img
+              src={item.image_path}
+              alt={item.outfitCategory}
+              style={{ width: "80%", height: "80%" }}
+            />
+            <div className="item__desc">
+              <span className="text name">{item.name}</span>
+              <div className="price_section">
+              <span className="text price">{item.budget} $</span>
+              <MdOutlineEco className="eco__icon"/>
+              </div>
+            </div>
+          </div>
+        ))}
     </div>
   );
 };

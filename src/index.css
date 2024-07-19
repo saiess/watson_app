@@ -5,12 +5,16 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #181818;
+  background-color: #f6eee3;
 
+  background-image: url(../public/bg.webp);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-repeat: repeat;
+  background-size: 10%;
+  background: linear-gradient(180deg, #f6eee3, #9d8f7b);
 }
 
 a {
