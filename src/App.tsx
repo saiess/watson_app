@@ -77,12 +77,17 @@ function App() {
       <h1 className="text">Recommended Outfits</h1>
       <hr className="line" />
       <p className="text">Please use Watson ChatBot for recommendations</p>
-      {isLoading && (
+      {isLoading ? (
         <div className="loader_container">
           <div className="loader"></div>
         </div>
+      ) : filteredData.length === 0 ? (
+        <div className="loader_container">
+          <p className="text">Not Available yet 😅 Please look for different recommendations.</p>
+        </div>
+      ) : (
+        <Outfits imagesToDisplay={filteredData} />
       )}
-      {filteredData && <Outfits imagesToDisplay={filteredData} />}
       <WatsonAssistant setUserPreferences={setUserPreferences} />
     </>
   );
